@@ -1,5 +1,5 @@
 const input = Number(prompt("Give a positive integer"));
-const table = document.getElementById("target");
+const table = document.getElementById("#target");
 
 if (input > 0) {   
     for (let i = 1; i <= input; i++) {

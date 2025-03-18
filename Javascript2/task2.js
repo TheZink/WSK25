@@ -9,7 +9,7 @@ for (let i = 0; i < 5; i++){
 document.querySelector("#p1").innerHTML = numbers;
 console.log(numbers);
 
-const input2 = Number(prompt("Enter index number"));
+const input2 = Number(prompt("Enter numbert to find it"));
 
 if (numbers.includes(input2)) {
     document.querySelector("#p2").innerHTML = `Number found in the array!`;
@@ -20,13 +20,11 @@ if (numbers.includes(input2)) {
 numbers.pop(numbers.length-1);
 document.querySelector("#p3").innerHTML = numbers;
 
-numbers.sort();
+numbers.sort(function(a,b) {return b-a});
 document.querySelector("#p4").innerHTML = numbers;
+console.log(numbers)
 
 
 
-
-// Sort the numbers array in ascending numerical order using the 
-// sort() method with a custom comparison function.
 
 // Display the sorted numbers array on the HTML document or in the console.
