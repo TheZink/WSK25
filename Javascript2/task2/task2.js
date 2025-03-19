@@ -9,22 +9,17 @@ for (let i = 0; i < 5; i++){
 document.querySelector("#p1").innerHTML = numbers;
 console.log(numbers);
 
-const input2 = Number(prompt("Enter numbert to find it"));
+const input2 = Number(prompt("Enter number to search"));
 
 if (numbers.includes(input2)) {
-    document.querySelector("#p2").innerHTML = `Number found in the array!`;
+    document.querySelector("#p2").innerHTML = `Number ${input2} found!`;
 } else {
-    document.querySelector("#p2").innerHTML = `Number not found!`
+    document.querySelector("#p2").innerHTML = `Number ${input2} not found!`
 }
 
 numbers.pop(numbers.length-1);
 document.querySelector("#p3").innerHTML = numbers;
 
-numbers.sort(function(a,b) {return b-a});
+numbers.sort(function(a,b) {return a-b});
 document.querySelector("#p4").innerHTML = numbers;
 console.log(numbers)
-
-
-
-
-// Display the sorted numbers array on the HTML document or in the console.

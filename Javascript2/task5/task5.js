@@ -1,12 +1,16 @@
 function sortArray(list, order) {
-    const sorted = list.sort();
+
+    const copiedList = list.slice();
     
     if (order === 'asc'){
-        const ascending = list.toSorted();
+        const ascending = copiedList.toSorted();
         return ascending;
-    } else {
-        const descending = list.toReversed();
+    } else if (order === 'desc') {
+        copiedList.sort();
+        const descending = copiedList.toReversed();
         return descending;
+    } else {
+        console.log("Error on order-type " + order)
     }
 }
 
@@ -22,3 +26,8 @@ console.log("Descending list 2")
 console.log(sortArray(list2, 'desc'));
 console.log("Ascending list 1")
 console.log(sortArray(list2, "asc"))
+console.log(sortArray(list2, "asc1"))
+
+console.log("Unsorted list 1 " + list1)
+console.log("Unsorted list 2" + list2)
+
