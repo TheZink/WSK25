@@ -29,6 +29,8 @@ const todoList = [
 
 function toDo(){
   const ulList = document.getElementById("ulList");
+
+  // QuerySelector modal-ikkunaa varten
   const modal = document.querySelector('dialog');
   const openMod = document.querySelector('#openMod');
 
@@ -36,6 +38,7 @@ function toDo(){
   const saveMod = document.querySelector("form button");
 
   for (let i = 0; i < todoList.length; i++){
+
     let ulElement = document.createElement('li');
     ulElement.classList.add('ulList')
 
@@ -43,24 +46,28 @@ function toDo(){
     let labelBox = document.createElement('label');
     let deleteButton = document.createElement('button');
 
-    // Luodaan Chechbox
-    checkbox.type = 'checkbox';
-    checkbox.id = todoList[i]['id']
-    checkbox.checked = todoList[i]['completed'];
+    // Tarkastetaan, onko arrayn alkio 'undefined'
+    if (todoList[i] != undefined) {
 
-    // Luodaan Label
-    labelBox.type = 'label';
-    labelBox.setAttribute('for', checkbox.id);
-    labelBox.textContent = todoList[i]['task'];
+      // Luodaan Chechbox
+      checkbox.type = 'checkbox';
+      checkbox.id = todoList[i]['id']
+      checkbox.checked = todoList[i]['completed'];
 
-    // Luodaan Delete-button
-    deleteButton.textContent = 'Del';
+      // Luodaan Label
+      labelBox.type = 'label';
+      labelBox.setAttribute('for', checkbox.id);
+      labelBox.textContent = todoList[i]['task'];
 
-    ulElement.appendChild(checkbox);
-    ulElement.appendChild(labelBox);
-    ulElement.appendChild(deleteButton);
-    
-    ulList.appendChild(ulElement);
+      // Luodaan Delete-button
+      deleteButton.textContent = '🗑️';
+
+      ulElement.appendChild(checkbox);
+      ulElement.appendChild(labelBox);
+      ulElement.appendChild(deleteButton);
+      
+      ulList.appendChild(ulElement);
+    }
 
     // Poistaa elementin toDoList
     deleteButton.addEventListener('click', function() {
@@ -73,10 +80,8 @@ function toDo(){
     checkbox.addEventListener('change', function() {
       if (checkbox.checked == true) {
         todoList[i].completed = true;
-        console.log(todoList[i].completed)
       } else if (checkbox.checked === false){
         todoList[i].completed = false;
-        console.log(todoList[i].completed)
       }
       console.log(todoList)
     });
@@ -86,7 +91,7 @@ function toDo(){
     modal.showModal();
   })
 
-  // Save modal input (WIP)
+  // Modal-ikkuna
   saveMod.addEventListener('click', function (event) {
     event.preventDefault();
     const newTask = inputMod.value.trim();
@@ -96,9 +101,15 @@ function toDo(){
         task: newTask,
         completed: false,
       });
+
       console.log(`New task added: ${newTask}`);
       modal.close();
       inputMod.value = '';
+
+      ulList.innerHTML = "";
+      toDo();
+
+
     }
   });
 }
