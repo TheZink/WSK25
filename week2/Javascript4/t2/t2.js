@@ -770,4 +770,46 @@ const restaurants = [
   },
 ];
 
-// your code here
+function MainApp(){
+
+  restaurants.sort((a,b) => {
+    if (a.name < b.name) {return -1;}
+    if (a.name > b.name) {return 1};
+    return 0;
+  });
+
+  for (let i = 0; i < restaurants.length; i++){
+    const targetTr = document.createElement('tr');
+    targetTr.classList.add('highlight');
+
+    const nameTh = document.createElement('td');
+    nameTh.id = `nameColumn-${[i]}`
+    nameTh.textContent = restaurants[i].name;
+
+    const addressTh = document.createElement('td');
+    addressTh.id = `addressColumn-${[i]}`
+    addressTh.textContent = restaurants[i].address;
+
+    targetTr.appendChild(nameTh);
+    targetTr.appendChild(addressTh);
+
+    document.getElementById('target').appendChild(targetTr);
+    
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+
+    if (target.tagName === 'TD' && target.id.startsWith('nameColumn')) {
+      const index = target.id.split('-')[1];
+      console.log(restaurants[index]);
+    }
+
+    if (target.tagName === 'TD' && target.id.startsWith('addressColumn')) {
+      const index = target.id.split('-')[1];
+      console.log(restaurants[index]);
+    }
+  });
+} 
+
+MainApp();
