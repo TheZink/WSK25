@@ -771,6 +771,12 @@ const restaurants = [
 ];
 
 function MainApp(){
+  const modal = document.getElementById('restaurant');
+  const closeModal = document.querySelector('.close');
+  const modalTitle = document.getElementById('title');
+  const modalAddress = document.getElementById('address');
+  const modalPhone = document.getElementById('phone');
+  const modalCompany = document.getElementById('company');
 
   restaurants.sort((a,b) => {
     if (a.name < b.name) {return -1;}
@@ -783,33 +789,31 @@ function MainApp(){
     targetTr.classList.add('highlight');
 
     const nameTh = document.createElement('td');
-    nameTh.id = `nameColumn-${[i]}`
     nameTh.textContent = restaurants[i].name;
 
     const addressTh = document.createElement('td');
-    addressTh.id = `addressColumn-${[i]}`
     addressTh.textContent = restaurants[i].address;
 
     targetTr.appendChild(nameTh);
     targetTr.appendChild(addressTh);
 
     document.getElementById('target').appendChild(targetTr);
+
+    targetTr.addEventListener('click', () => {
+      modalTitle.textContent = restaurants[i].name;
+      modalAddress.textContent = `Address: ${restaurants[i].address}`;
+      modalPhone.textContent = `Phone: ${restaurants[i].phone}`;
+      modalCompany.textContent = `Company: ${restaurants[i].company}`;
+      modal.style.display = "block";
+    });
     
   }
 
-  document.addEventListener('click', (event) => {
-    const target = event.target;
+  closeModal.addEventListener('click', () => {
+    modal.style.display = "none";
 
-    if (target.tagName === 'TD' && target.id.startsWith('nameColumn')) {
-      const index = target.id.split('-')[1];
-      console.log(restaurants[index]);
-    }
-
-    if (target.tagName === 'TD' && target.id.startsWith('addressColumn')) {
-      const index = target.id.split('-')[1];
-      console.log(restaurants[index]);
-    }
   });
+  
 } 
 
 MainApp();
