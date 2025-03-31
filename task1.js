@@ -1,28 +1,38 @@
 const getRestaurants = async () => {
   try {
-    const request = await fetch('https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants')
+    const request = await fetch(`
+      https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants`);
+    
     if (!request.ok) {
       throw new Error(`Fetch error: ${request.status}`);
     }
+
     const data = await request.json();
     return data;
+
   } catch (error) {
     console.log('error', error);
+
   } finally {
-    console.log("Request complete");
+    console.log(`Request complete`);
   }
 }
 
 const getMenu = async (id) => {
   try {
-    const request = await fetch(`https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants/daily/${id}/fi`)
+    const request = await fetch(`
+      https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants/daily/${id}/fi`);
+
     if (!request.ok) {
       throw new Error(`Fetch error: ${request.status}`);
     }
+
     const data = await request.json();
     return data;
+
   } catch (error) {
     console.log('error', error);
+
   } finally {
     console.log("Request complete");
   }
@@ -35,12 +45,14 @@ async function MainApp(){
   const modalAddress = document.getElementById('address');
   const modalPhone = document.getElementById('phone');
   const modalCompany = document.getElementById('company');
-  const modalMenu = document.getElementById('menu')
+  const modalMenu = document.getElementById('menu');
+
+  const targetTable = document.getElementById('target');
 
   let restaurants = await getRestaurants();
   
   restaurants.sort((a,b) => {
-    if (a.name < b.name) {return -1;}
+    if (a.name < b.name) {return -1;};
     if (a.name > b.name) {return 1};
     return 0;
   });
@@ -59,7 +71,7 @@ async function MainApp(){
     targetTr.appendChild(nameTh);
     targetTr.appendChild(addressTh);
 
-    document.getElementById('target').appendChild(targetTr);
+    targetTable.appendChild(targetTr);
     
     // Modal-ikkuna
     targetTr.addEventListener('click', async() => {
@@ -69,17 +81,19 @@ async function MainApp(){
       modalCompany.textContent = `Company: ${restaurants[i].company}`;
       modalMenu.innerHTML = '';
       
-      const menu = await getMenu(restaurants[i]._id);
+      // Haetaan ravintolan ruokalista
+      const menu = await getMenu(restaurants[i]._id); 
+      const {courses} = menu;
 
-      if (menu && menu.courses) {
-        menu.courses.forEach(course => {
+      courses
+        ? courses.forEach(course => {
+          const {name, price} = course
           const menuItem = document.createElement('p');
-          menuItem.textContent = `${course.name}, ${course.price}`;
+          menuItem.textContent = `${name}, ${price}`;
           modalMenu.appendChild(menuItem);
-        });  
-      } else {
-        modalMenu.textContent = `Data retrieval fails`
-      }
+        })
+       : document.getElementById('menu').createElement('p') = `Data retrieval fails`;
+      
       modal.style.display = "block";
     });
   }
