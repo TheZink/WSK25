@@ -53,15 +53,15 @@ async function MainApp(){
   });
 
   const rows = restaurantsRow(restaurants);
-
+  
   rows.forEach((row, index) => {
     row.addEventListener('click', async() =>{
       const menu = await getMenu(restaurants[index]._id); 
-
+      
+      const {name, address, postalCode, phone, company} = restaurants[index];
+      const {courses} = menu;
       console.log(restaurants[index])
-      console.log(menu)
-
-      const restaurantData = restaurantModal(restaurant[index], menu);
+      const restaurantData = restaurantModal(name, address, postalCode, phone, company, courses);
       modal.style.display = "block";
     }) 
   });

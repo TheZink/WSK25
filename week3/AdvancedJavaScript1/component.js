@@ -3,6 +3,7 @@ const targetTable = document.getElementById('target');
 
 const modalTitle = document.getElementById('title');
 const modalAddress = document.getElementById('address');
+const modalPostal = document.getElementById("postalCode")
 const modalPhone = document.getElementById('phone');
 const modalCompany = document.getElementById('company');
 const modalMenu = document.getElementById('menu');
@@ -32,13 +33,12 @@ export const restaurantsRow = (data) => {
     return row;
 };
 
-export const restaurantModal = (restaurants, menu) => {
+export const restaurantModal = (name, address, postalCode, phone, company, courses) => {
 
-    const {name, address, phone, company} = restaurants
-    const {courses} = menu;
-
+    
     modalTitle.textContent = name;
     modalAddress.textContent = `Address: ${address}`;
+    modalPostal.textContent = `Postalcode: ${postalCode}`
     modalPhone.textContent = `Phone: ${phone}`;
     modalCompany.textContent = `Company: ${company}`;
     modalMenu.innerHTML = '';
@@ -48,8 +48,8 @@ export const restaurantModal = (restaurants, menu) => {
     ? courses.forEach(course => {
         const {name, price} = course
         const menuItem = document.createElement('p');
-        menuItem.textContent = `${name}, ${price}`;
+        menuItem.textContent = `${name}, ${price ? `price ${price}` : '(Price not avaible)'}`;
         modalMenu.appendChild(menuItem);
     })
-    : document.getElementById('menu').createElement('p') = `Data retrieval fails`;
+    : (modalMenu.innerHTML = 'Data retrieval fails');
 };

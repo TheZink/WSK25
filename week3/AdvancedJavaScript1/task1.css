@@ -82,8 +82,13 @@ td {
 #address {
   color: white
 }
-#phone {
+
+#postalCode{
   color: white
+}
+
+#phone {
+  color: whitesmoke
 }
 
 #menu {
