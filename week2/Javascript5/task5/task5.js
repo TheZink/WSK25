@@ -64,20 +64,24 @@ async function MainApp(){
     document.getElementById('target').appendChild(targetTr);
     getMenu(restaurants[i]._id)
 
+    // Modal-ikkuna
     targetTr.addEventListener('click', () => {
       modalTitle.textContent = restaurants[i].name;
       modalAddress.textContent = `Address: ${restaurants[i].address}`;
       modalPhone.textContent = `Phone: ${restaurants[i].phone}`;
       modalCompany.textContent = `Company: ${restaurants[i].company}`;
-
-      if (menu[i].courses[0] != null) {
-        modalMenu.textContent = `Menu: ${menu[i].courses[0].name}`
+      modalMenu.innerHTML = '';
+    
+      if (menu[i] && menu[i].courses) {
+        menu[i].courses.forEach(course => {
+          const menuItem = document.createElement('p');
+          menuItem.textContent = `${course.name}, ${course.price}`;
+          modalMenu.appendChild(menuItem);
+        });  
       } else {
-        modalMenu.textContent = `Menu: Data retrieval fails`
+        modalMenu.textContent = `Data retrieval fails`
       }
-
       modal.style.display = "block";
-      console.log(menu[i])
     });
   }
 
