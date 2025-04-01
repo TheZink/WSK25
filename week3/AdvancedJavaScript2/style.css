@@ -54,8 +54,7 @@ td {
   border-radius: 8px;
 }
 
-.modal-content>li,
-ul {
+.modal-content > li, ul {
   color: white;
 }
 
