@@ -12,7 +12,7 @@ const pStatus = document.getElementById("status");
 async function MainApp(){
 
   let restaurantsUrl = urlRestaurants();
-  let restaurantsData = await fetchData(restaurantsUrl, "")
+  let restaurantsData = await fetchData(restaurantsUrl);
 
   restaurantsData.sort((a,b) => {
     if (a.name < b.name) {return -1};
@@ -28,18 +28,16 @@ async function MainApp(){
 
     const searchItem = searchInput.value.toLowerCase();
     const filtered = restaurantsData.filter((restaurant) => 
-      restaurant.name.toLowerCase().includes(searchItem));
+      restaurant.name.toLowerCase().includes(searchItem) ||
+      restaurant.address.toLowerCase().includes(searchItem) ||
+      restaurant.city.toLowerCase().includes(searchItem));
 
-    console.log(filtered[0])
-
-    
-    
     if (filtered.length > 0) {
-      const rows = restaurantsRow(restaurantsData);
+      const rows = restaurantsRow(filtered);
       rows.forEach(row => targetTable.appendChild(row));
       pStatus.innerHTML = ""
     } else {
-      pStatus.innerHTML = "Not found"
+      targetTable.innerHTML = `Sorry, "${searchItem}" not found`;
       console.log(filtered)
     }
   });
@@ -56,7 +54,7 @@ async function MainApp(){
       const {courses} = menuData;
         
         const restaurantData = restaurantModal(name, address,  city, postalCode, phone, company, courses);
-
+        
         modal.appendChild(restaurantData)
         modal.style.display = "block";
         
@@ -65,6 +63,8 @@ async function MainApp(){
       closeModal.addEventListener('click', () => {
         modal.style.display = "none";
       });
+
+
 
     }); 
 

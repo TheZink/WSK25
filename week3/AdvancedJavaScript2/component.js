@@ -11,7 +11,7 @@ export const restaurantsRow = (data, filter) => {
 
         row.innerHTML = `
         <td>${restaurants.name}</td>
-        <td>${restaurants.address}</td>
+        <td>${restaurants.address}, ${restaurants.city}</td>
         `;
         rows.push(row)  
     });
