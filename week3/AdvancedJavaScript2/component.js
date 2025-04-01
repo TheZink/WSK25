@@ -8,12 +8,13 @@ export const restaurantsRow = (data, filter) => {
         
         const row = document.createElement('tr');
         row.classList.add('highlight');
+        row.setAttribute('id', restaurants._id)
 
         row.innerHTML = `
         <td>${restaurants.name}</td>
         <td>${restaurants.address}, ${restaurants.city}</td>
         `;
-        rows.push(row)  
+        rows.push(row)
     });
 
     return rows;
