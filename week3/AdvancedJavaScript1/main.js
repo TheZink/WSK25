@@ -1,5 +1,5 @@
 import { restaurantsRow, restaurantModal} from "./component.js";
-import { urlRestaurants, urlMenu } from "./variables.js";
+import { urlRestaurants, urlMenu } from "./baseUrl.js";
 import { fetchData } from "./util.js";
 
 const targetTable = document.getElementById('target');
