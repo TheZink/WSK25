@@ -46,9 +46,9 @@ export const restaurantModal = (name, address, city, postalCode, phone, company,
 
     courses
     ? courses.forEach(course => {
-        const {name, price} = course
+        const {name, price, diets} = course
         const menuItem = document.createElement('p');
-        menuItem.textContent = `${name}, ${price ? `price ${price}` : '(Price not avaible)'}`;
+        menuItem.textContent = `${name}, ${price ? `price ${price}` : '(Price not avaible)'}  ${diets}`;
         modalMenu.appendChild(menuItem);
     })
     : (modalMenu.innerHTML = 'Data retrieval fails');
