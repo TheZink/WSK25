@@ -22,6 +22,7 @@ async function MainApp(){
   
   rows.forEach((row, index) => {
     row.addEventListener('click', async() =>{
+      
       modal.innerHTML = "";
       console.log('Evenlistener activated')
       const menuUrl = urlMenu(restaurantsData[index]._id); 
@@ -36,17 +37,12 @@ async function MainApp(){
       console.log('Evenlistener completed')
 
       const closeModal = document.querySelector(".close");
-      
+
       closeModal.addEventListener('click', () => {
         modal.style.display = "none";
       });
     }) 
   });
-    
-  window.addEventListener('clikc', () => {
-    modal.style.display = "none";
-  });
-  
 } 
 
 MainApp();
