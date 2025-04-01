@@ -10,46 +10,44 @@ const modalMenu = document.getElementById('menu');
 
 
 export const restaurantsRow = (data) => {
-    let row = [];
+    let rows = [];
 
     data.forEach(restaurants => {
-        const targetTr = document.createElement('tr');
-        targetTr.classList.add('highlight');
+        const row = document.createElement('tr');
+        row.classList.add('highlight');
 
-        const nameTh = document.createElement('td');
-        nameTh.textContent = restaurants.name;
-
-        const addressTh = document.createElement('td');
-        addressTh.textContent = restaurants.address;
-
-        targetTr.appendChild(nameTh);
-        targetTr.appendChild(addressTh);
-
-        targetTable.appendChild(targetTr);
-        row.push(targetTr);
-        
+        row.innerHTML = `
+        <td>${restaurants.name}</td>
+        <td>${restaurants.address}</td>
+        `;
+        rows.push(row)     
     });
+    return rows;
 
-    return row;
 };
 
 export const restaurantModal = (name, address, city, postalCode, phone, company, courses) => {
-
-    
-    modalTitle.textContent = name;
-    modalAddress.textContent = `Address: ${address}, ${city}`;
-    modalPostal.textContent = `Postalcode: ${postalCode}`
-    modalPhone.textContent = `Phone: ${phone}`;
-    modalCompany.textContent = `Company: ${company}`;
-    modalMenu.innerHTML = '';
-      
+  
+    const modal = document.createElement('ul');
+    let menuHtml = '';
 
     courses
     ? courses.forEach(course => {
-        const {name, price, diets} = course
-        const menuItem = document.createElement('p');
-        menuItem.textContent = `${name}, ${price ? `price ${price}` : '(Price not avaible)'}  ${diets}`;
-        modalMenu.appendChild(menuItem);
+        menuHtml += `<li style = "color: white">${course.name}, ${course.price || '?€'}. ${course.diets}</li>`;
     })
-    : (modalMenu.innerHTML = 'Data retrieval fails');
+    : (menuHtml = 'Data retrieval fails');
+
+     menuHtml += '</ul>';
+     modal.innerHTML = `
+        <span class="close">&times;</span>
+        <h1 style = "color: white">${name}</h1>
+        <p style = "color: white">Company: ${company}</p>
+        <p style = "color: white">Address: ${address}, ${city}</p>
+        <p style = "color: white">PostalCode: ${postalCode}</p>
+        <h3 style = "color:white"> Courses</h3>
+        <p style = "color: white">Phone: ${phone}</p>
+        ${menuHtml}
+        `;
+
+    return modal;
 };

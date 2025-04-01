@@ -32,7 +32,7 @@ td {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -42,8 +42,9 @@ td {
   background-color: rgba(0, 0, 0, 0.904);
 }
 
-.content {
+.modal-content {
   background-color: #fff;
+  color: white;
   margin: 15% auto;
   top: 50%;
   padding: 20px;
@@ -53,7 +54,7 @@ td {
   border-radius: 8px;
 }
 
-.content > p {
+.modal-content p {
   color: white;
 }
 
@@ -69,32 +70,4 @@ td {
 .close:focus {
   color: black;
   text-decoration: none;
-}
-
-#title {
-  color: white;
-}
-
-#company {
-  color: white
-}
-
-#address {
-  color: white
-}
-
-#postalCode{
-  color: white
-}
-
-#phone {
-  color: whitesmoke
-}
-
-#menu {
-  color: white
-}
-
-#menuHeader{
-  color: white
 }
