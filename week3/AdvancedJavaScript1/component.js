@@ -1,14 +1,6 @@
 
 const targetTable = document.getElementById('target');
 
-const modalTitle = document.getElementById('title');
-const modalAddress = document.getElementById('address');
-const modalPostal = document.getElementById("postalCode")
-const modalPhone = document.getElementById('phone');
-const modalCompany = document.getElementById('company');
-const modalMenu = document.getElementById('menu');
-
-
 export const restaurantsRow = (data) => {
     let rows = [];
 
@@ -40,12 +32,12 @@ export const restaurantModal = (name, address, city, postalCode, phone, company,
      menuHtml += '</ul>';
      modal.innerHTML = `
         <span class="close">&times;</span>
-        <h1 style = "color: white">${name}</h1>
-        <p style = "color: white">Company: ${company}</p>
-        <p style = "color: white">Address: ${address}, ${city}</p>
-        <p style = "color: white">PostalCode: ${postalCode}</p>
-        <h3 style = "color:white"> Courses</h3>
-        <p style = "color: white">Phone: ${phone}</p>
+        <h1>${name}</h1>
+        <p>Company: ${company}</p>
+        <p>Address: ${address}, ${city}</p>
+        <p>PostalCode: ${postalCode}</p>
+        <p>Phone: ${phone}</p>
+        <h3> Courses</h3>
         ${menuHtml}
         `;
 
