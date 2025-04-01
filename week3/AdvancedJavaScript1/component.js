@@ -33,11 +33,11 @@ export const restaurantsRow = (data) => {
     return row;
 };
 
-export const restaurantModal = (name, address, postalCode, phone, company, courses) => {
+export const restaurantModal = (name, address, city, postalCode, phone, company, courses) => {
 
     
     modalTitle.textContent = name;
-    modalAddress.textContent = `Address: ${address}`;
+    modalAddress.textContent = `Address: ${address}, ${city}`;
     modalPostal.textContent = `Postalcode: ${postalCode}`
     modalPhone.textContent = `Phone: ${phone}`;
     modalCompany.textContent = `Company: ${company}`;

@@ -1,67 +1,30 @@
 import { restaurantsRow, restaurantModal} from "./component.js";
-
-const getRestaurants = async () => {
-  try {
-    const request = await fetch(`
-      https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants`);
-    
-    if (!request.ok) {
-      throw new Error(`Fetch error: ${request.status}`);
-    }
-
-    const data = await request.json();
-    return data;
-
-  } catch (error) {
-    console.log('error', error);
-
-  } finally {
-    console.log(`Request complete`);
-  }
-}
-
-const getMenu = async (id) => {
-  try {
-    const request = await fetch(`
-      https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants/daily/${id}/fi`);
-
-    if (!request.ok) {
-      throw new Error(`Fetch error: ${request.status}`);
-    }
-
-    const data = await request.json();
-    return data;
-
-  } catch (error) {
-    console.log('error', error);
-
-  } finally {
-    console.log("Request complete");
-  }
-}
+import { urlRestaurants, urlMenu } from "./variables.js";
+import { fetchData } from "./util.js";
 
 async function MainApp(){
   const modal = document.getElementById("restaurant");
   const closeModal = document.querySelector(".close");
 
-  let restaurants = await getRestaurants();
+  let restaurantsUrl = urlRestaurants();
+  let restaurantsData = await fetchData(restaurantsUrl)
 
-  restaurants.sort((a,b) => {
+  restaurantsData.sort((a,b) => {
     if (a.name < b.name) {return -1};
     if (a.name > b.name) {return 1};
     return 0;
   });
 
-  const rows = restaurantsRow(restaurants);
+  const rows = restaurantsRow(restaurantsData);
   
   rows.forEach((row, index) => {
     row.addEventListener('click', async() =>{
-      const menu = await getMenu(restaurants[index]._id); 
+      const menuUrl = urlMenu(restaurantsData[index]._id); 
+      const menuData = await fetchData(menuUrl);
       
-      const {name, address, postalCode, phone, company} = restaurants[index];
-      const {courses} = menu;
-      console.log(restaurants[index])
-      const restaurantData = restaurantModal(name, address, postalCode, phone, company, courses);
+      const {name, address, city, postalCode, phone, company} = restaurantsData[index];
+      const {courses} = menuData;
+      const restaurantData = restaurantModal(name, address, city, postalCode, phone, company, courses);
       modal.style.display = "block";
     }) 
   });
